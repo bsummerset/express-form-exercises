@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.get('/new', (req, res) => {
     res.send(`
-<h1>Say something!</h1>
+<h1>Address Form!</h1>
 <form method="POST">
   <label>
    Street
@@ -38,8 +38,8 @@ app.get('/new', (req, res) => {
   City
    </label>
   <input name="city" type="text" />
-  <br />
-  <input type="submit" value="do it!" />
+  <br /><br>
+  <input type="submit" value="SUBMIT!" />
 </form>
     `);
 });

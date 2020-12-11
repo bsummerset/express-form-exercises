@@ -38,12 +38,12 @@ app.get('/new', (req, res) => {
     Street
     <input name="street" type="text" autofocus />
   </label>
-  <br>
+  <br><br>
   <label>
     City
     <input name="city" type="text" />
   </label>
-  <br />
+  <br /><br>
   <input type="submit" value="do it!" />
 </form>
     `);
