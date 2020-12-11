@@ -30,18 +30,32 @@ app.get('/new', (req, res) => {
 <h1>Say something!</h1>
 <form method="POST">
   <label>
-    Thoughts?
-    <input name="thought" type="text" autofocus />
-  </label>
+   Street
+   </label>
+    <input name="street" type="text" autofocus />
+  <br>
+  <label>
+  City
+   </label>
+  <input name="city" type="text" />
+  <br />
   <input type="submit" value="do it!" />
 </form>
     `);
 });
 
+//Recieve the POST request that con
 app.post('/new', (req, res) => {
-    const { thought } = req.body;
-    db.push(thought);
-    res.redirect('/list');
+    console.log(req.body);
+    //req.body contains the data sent in the form
+    const {street, city} = req.body // destructuring
+    // const street = req.body.street;
+    // const city = req.body.city;
+    //const thought = req.body.thought
+    db.push({street,city}); // saving it to the "database"
+    res.redirect('/list'); //redirect!
+    //We tell the browser to send us another GET request
+    //for '/list'
 });
 
 app.get('/list', (req, res) => {
@@ -49,7 +63,7 @@ app.get('/list', (req, res) => {
 <a href="/new">Go to the form</a>
 <ul>
   ${
-    db.map(thought => `<li>${thought}</li>`).join('')
+    db.map(o => `<li>${o.street} ${o.city}</li>`).join('')
   }
 </ul>
     `);
