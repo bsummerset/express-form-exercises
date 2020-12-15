@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.get('/new', (req, res) => {
     res.send(`
-<h1>Say something!</h1>
+<h1>Little Wins</h1>
 <form method="POST">
   <label>
     Thoughts?
