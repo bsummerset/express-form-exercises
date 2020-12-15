@@ -3,6 +3,9 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
+const Sequelize = require('sequelize');
+const {Pets} = require('./models');
+
 const app = express();
 const server = http.createServer(app);
 
@@ -30,26 +33,47 @@ app.get('/new', (req, res) => {
 <h1>Say something!</h1>
 <form method="POST">
   <label>
-    Thoughts?
-    <input name="thought" type="text" autofocus />
+    Name:
+    <input name="name" type="text" autofocus />
   </label>
+  <br />
+  <label>
+  Breed:
+  <input name="breed" type="text" />
+  </label>
+  <br />
   <input type="submit" value="do it!" />
 </form>
     `);
 });
 
-app.post('/new', (req, res) => {
-    const { thought } = req.body;
-    db.push(thought);
+//async means that you will use the await keyword
+//This is "setup" for using await
+app.post('/new', async (req, res) => {
+    const { name, breed} = req.body;
+   // db.push(thought);
+   // 1. [X] Change to async/await
+   // 2. [X] Call Pets.create() and pass it form data
+   const newPet = await Pets.create({
+     name,
+     breed
+   });
+   // 3. [X] res.redirect()
     res.redirect('/list');
 });
 
-app.get('/list', (req, res) => {
+app.get('/list', async (req, res) => {
+  // 1. make into async/await
+  // 2. Call Pets.findAll()
+  const pets = await Pets.findAll();
+  // 3. Send resp with pets.map()
+
+
     res.send(`
 <a href="/new">Go to the form</a>
 <ul>
   ${
-    db.map(thought => `<li>${thought}</li>`).join('')
+    pets.map(p => `<li>${p.name}: ${p.breed}</li>`).join('')
   }
 </ul>
     `);
